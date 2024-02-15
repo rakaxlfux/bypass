@@ -10,9 +10,19 @@ inputBox.addEventListener("keypress", function(event) {
     if (code === 13) {
         callAPI(inputBox.value);
     }
+    // Disable the input box
+    inputBox.disabled = true;
+    // Change the value of the input box to "starting"
+    inputBox.value = "starting, made by raka!";
+    // Align the text in the center of the box
+    inputBox.style.textAlign = "center";
+    // Add a delay of 3 seconds
+    setTimeout(function() {
+        // Change the value of the input box to "done"
+        inputBox.value = "done";
+    }, 3000);
 });
 
-// Define the function to call the API
 function callAPI(hwid) {
     // Create a new XMLHttpRequest object
     var xhr = new XMLHttpRequest();
@@ -26,8 +36,14 @@ function callAPI(hwid) {
     // Define what to do when the request is ready
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            // Display the response from the API on the input element
-            document.querySelector(".api-response").value = xhr.responseText; // Change this line
+            // Parse the JSON response
+            var response = JSON.parse(xhr.responseText);
+            
+            // Extract the key value
+            var key = response.key;
+
+            // Display the key on the input element
+            document.querySelector(".api-response").value = key;
         } else {
             // Log the error message
             console.log('Failed to retrieve data from API');
@@ -37,6 +53,7 @@ function callAPI(hwid) {
     // Send the request
     xhr.send();
 }
+
 
 // Modify the function to display the API response
 xhr.onreadystatechange = function() {
