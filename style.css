@@ -5,3 +5,9 @@
     align-items: center;
     justify-content: center;
 }
+
+.input-key {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
